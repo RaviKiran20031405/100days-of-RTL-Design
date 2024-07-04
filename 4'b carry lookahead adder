@@ -1,0 +1,65 @@
+module CarryLookAheadAdder (
+    input [3:0] A,  // First 4-bit input
+    input [3:0] B,  // Second 4-bit input
+    input Cin,      // Input carry
+    output [3:0] Sum, // 4-bit sum output
+    output Cout      // Output carry
+);
+    wire [3:0] G; // Generate terms
+    wire [3:0] P; // Propagate terms
+    wire [3:0] C; // Carry terms
+
+    // Generate terms (G) and Propagate terms (P)
+    assign G = A & B; // Gi = Ai * Bi
+    assign P = A ^ B; // Pi = Ai ^ Bi
+
+    // Carry terms
+    assign C[0] = Cin;
+    assign C[1] = G[0] | (P[0] & Cin);
+    assign C[2] = G[1] | (P[1] & G[0]) | (P[1] & P[0] & Cin);
+    assign C[3] = G[2] | (P[2] & G[1]) | (P[2] & P[1] & G[0]) | (P[2] & P[1] & P[0] & Cin);
+    assign Cout = G[3] | (P[3] & G[2]) | (P[3] & P[2] & G[1]) | (P[3] & P[2] & P[1] & G[0]) | (P[3] & P[2] & P[1] & P[0] & Cin);
+
+    // Sum calculation
+    assign Sum = P ^ C[3:0];
+
+endmodule
+
+
+/////////////////////////////////////////////////////////////
+module CarryLookAheadAdder_tb;
+
+    reg [3:0] A;  // First 4-bit input
+    reg [3:0] B;  // Second 4-bit input
+    reg Cin;      // Input carry
+    wire [3:0] Sum; // 4-bit sum output
+    wire Cout;    // Output carry
+
+    // Instantiate the Carry Look-Ahead Adder module
+    CarryLookAheadAdder uut (
+        .A(A),
+        .B(B),
+        .Cin(Cin),
+        .Sum(Sum),
+        .Cout(Cout)
+    );
+
+    initial begin
+        // Monitor the signals
+        $monitor("Time=%0t: A=%b, B=%b, Cin=%b, Sum=%b, Cout=%b", $time, A, B, Cin, Sum, Cout);
+
+        // Test cases
+        A = 4'b0000; B = 4'b0000; Cin = 1'b0; #10; // Test case 1
+        A = 4'b0001; B = 4'b0001; Cin = 1'b0; #10; // Test case 2
+        A = 4'b0011; B = 4'b0101; Cin = 1'b0; #10; // Test case 3
+        A = 4'b0111; B = 4'b0110; Cin = 1'b0; #10; // Test case 4
+        A = 4'b1111; B = 4'b1111; Cin = 1'b0; #10; // Test case 5
+        A = 4'b1010; B = 4'b0101; Cin = 1'b1; #10; // Test case 6
+        A = 4'b1100; B = 4'b0011; Cin = 1'b1; #10; // Test case 7
+        A = 4'b1001; B = 4'b0110; Cin = 1'b1; #10; // Test case 8
+        A = 4'b0101; B = 4'b1010; Cin = 1'b1; #10; // Test case 9
+
+        $finish;
+    end
+
+endmodule
