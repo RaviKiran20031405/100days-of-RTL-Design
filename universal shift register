@@ -1,0 +1,62 @@
+`timescale 1ns / 1ps
+module universal_shift_register (clr,clk,sel,parin,out);
+input clr,clk;
+input [1:0]sel;
+input [3:0]parin;
+output reg[3:0]out;
+
+always @(posedge clk)
+begin
+
+if(clr)
+out=4'b0000;
+
+else
+begin
+case(sel)
+2'b00: out=out;
+2'b01: out={parin[0],parin[3:1]};
+2'b10: out={parin[2:0],parin[3]};
+2'b11: out=parin;
+endcase
+end
+
+end
+endmodule
+
+`timescale 1ns / 1ps
+
+module unsr_tb;
+
+reg [3:0]parin;
+reg clr;
+reg clk;
+reg [0:1]sel;
+wire [3:0]out;
+
+universal_shift_register uut(.parin(parin),.clr(clr),.clk(clk),.sel(sel),.out(out));
+
+initial  begin 
+clk=0;
+repeat(100)
+#20 clk=~clk;
+end
+
+initial  begin
+parin=4'b1011;
+sel=2'b01;
+clr=1'b0;
+#40;
+
+parin=4'b1011;
+sel=2'b10;
+clr=1'b0;
+#40;
+
+parin=4'b1011;
+sel=2'b11;
+clr=1'b0;
+#40;
+
+end
+endmodule
