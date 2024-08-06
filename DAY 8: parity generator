@@ -4,3 +4,49 @@ module parity(a,b,c,result);
   
   xor (result,a,b,c);
 endmodule
+//////////////////////tb/////////////////
+module parity_tb();
+  reg a,b,c;
+  wire result;
+  
+  parity uut(a,b,c,result);
+  
+  initial begin
+    a=0;
+    b=0;
+    c=0;
+    #10;
+    a=1;
+    b=0;
+    c=0;
+    #10;
+    a=0;
+    b=1;
+    c=0;
+    #10;
+    a=1;
+    b=1;
+    c=0;
+    #10;
+    a=0;
+    b=0;
+    c=1;
+    #10;
+    a=1;
+    b=1;
+    c=1;
+    #10;
+    
+   
+    $monitor("a=%d and b=%d  and c=%d  and result=%d  and time=%t",a,b,c,result,$time);
+  end
+
+  
+  initial begin
+    $dumpvars;
+    $dumpfile("dump.vcd");
+    
+  end
+  
+  
+endmodule
