@@ -1,0 +1,6 @@
+module parity(a,b,c,result);
+  input a,b,c;
+  output result;
+  
+  xor (result,a,b,c);
+endmodule
