@@ -17,4 +17,50 @@ output reg q
 endmodule
 //////////////////////////////////tb//////////////////////  
   
+  module t_ff_tb;
   
+  reg T,clk,rst;
+  wire q;
+  
+  t_ff uut(T,clk,rst,q);
+  
+  always #5 clk = ~clk;
+  
+  initial begin
+    rst =1;
+    clk =0;
+    T=0;
+    
+   #10;
+    rst=0;
+    
+    T=0;
+    #10;
+    T=1;
+    #10;
+    T=0;
+    #10;
+    T=1;
+    #10;
+    T=0;
+    #10;
+    T=0;
+    #10;
+    T=1;
+    #10;
+    T=0;
+    #10;
+    T=1;
+    #10;
+    
+    
+    $finish;
+  end
+  
+  initial begin
+    $dumpvars;
+    $dumpfile("dump.vcd");
+  end
+  
+  
+endmodule
