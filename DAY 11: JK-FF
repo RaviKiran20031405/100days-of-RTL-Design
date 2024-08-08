@@ -11,3 +11,28 @@ module jk(j,k,clk,q);
      endcase
      
 endmodule
+//////////////tb//////////////
+
+module jk_tb();
+  reg j,k,clk;
+  wire q;
+  
+  jk uut(j,k,clk,q);
+  
+  initial clk = 0;
+  always #5 clk = ~clk;
+  initial begin
+    j <= 0;k<=0;
+    #10 j<=0;k<=1;
+    #15 j<=1;k<=0;
+    #20 j<=1;k<=1;
+    $finish();
+    
+  end
+  initial begin
+    $display("j=%b  k=%b  q=%b  time=%t",j,k,q,$time);
+    $dumpvars;
+    $dumpfile("dump.vcd");
+  end
+  
+endmodule
