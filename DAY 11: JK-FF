@@ -11,7 +11,7 @@ module jk(j,k,clk,q);
      endcase
      
 endmodule
-//////////////tb//////////////
+//////////////  tb   //////////////
 
 module jk_tb();
   reg j,k,clk;
