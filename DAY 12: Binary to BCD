@@ -16,7 +16,7 @@ module binary2bcd(
  assign bcd = {hundreds,tens,ones};
 endmodule
 
-
+/////////////////////////   TB   //////////////////////////
 
 module binary2bcd_tb();
  reg [7:0] binary;
