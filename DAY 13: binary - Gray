@@ -8,3 +8,34 @@ module b_g(binary,gray);
   assign gray[0] = binary[1]^binary[0];
   
 endmodule
+
+
+
+
+module b_g_tb();
+  reg [3:0] binary;
+  wire [3:0] grey;
+  
+  b_g uut(binary,grey);
+  int i=0;
+  initial begin
+    $monitor("binary=%b and grey=%b  time=%t",binary,grey,$time);
+    for (i=0; i<16;i=i+1)begin
+      binary = i;
+      #2;
+    end
+    
+    
+    // #200;
+    // $finish;
+    
+  end
+  
+   initial begin
+        $dumpfile("dump.vcd");
+        $dumpvars;
+    end
+  
+  
+  
+endmodule
