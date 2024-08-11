@@ -5,3 +5,20 @@ module m_d(ip,op);
 endmodule
 
 ///////////////   TB  ///////////////////////////
+
+
+module m_d_tb();
+  reg [2:0] ip;
+  wire op;
+  
+  m_d uut(ip,op);
+  
+  initial begin
+    $monitor("ip=%b  op=%b",ip,op);
+    for(int i=0; i<8; i=i+1)
+      begin
+        ip = i;
+        #10;
+      end
+  end
+endmodule
