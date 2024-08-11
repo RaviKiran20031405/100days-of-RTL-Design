@@ -3,3 +3,5 @@ module m_d(ip,op);
   output op;
   assign op = ip[0]^ip[1]^ip[2];
 endmodule
+
+///////////////   TB  ///////////////////////////
