@@ -1,0 +1,5 @@
+module m_d(ip,op);
+  input [2:0]ip;
+  output op;
+  assign op = ip[0]^ip[1]^ip[2];
+endmodule
