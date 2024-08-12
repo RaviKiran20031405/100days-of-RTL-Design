@@ -17,3 +17,5 @@ module siso_register (
 
     assign serial_out = shift_reg[3];  // Output the MSB (most significant bit)
 endmodule
+
+///////////////////////  TB  ///////////////////////
