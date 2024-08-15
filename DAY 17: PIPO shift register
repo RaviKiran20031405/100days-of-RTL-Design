@@ -18,3 +18,42 @@ endmodule
 
 
 //////////////////////////////   TB   ////////////////////////////////////
+
+module pipo_tb();
+  reg clk;
+  reg rst;
+  reg [3:0] p_i;
+  wire [3:0] p_o;
+  
+  pipo uut(clk,rst,p_i,p_o);
+  
+  always #5 clk = ~clk;
+  initial begin
+  clk = 0;
+  rst = 0;
+    
+    rst =1;
+    #15;
+    rst = 0;
+    $monitor("s_i=%b  p_o=%b  time=%t",p_i,p_o,$time);
+     p_i = 4'b0001;
+     #10 p_i = 4'b0000;
+     #10 p_i = 4'b0001;
+     #10 p_i = 4'b1001;
+     #10 p_i = 4'b0010;
+     #10 p_i = 4'b0100;
+     #10 p_i = 4'b0001;
+     #10 p_i = 4'b1100;
+     #10 p_i = 4'b1001;
+    
+    #100;
+    $finish;
+  end
+   initial begin
+     $dumpvars;
+     $dumpflie("dump.vcd");
+     
+     
+   end
+  
+endmodule
