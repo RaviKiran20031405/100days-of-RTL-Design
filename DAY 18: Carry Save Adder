@@ -1,1 +1,12 @@
 
+module carry_save_adder (
+    input [3:0] a, // First input operand
+    input [3:0] b, // Second input operand
+    input [3:0] c, // Third input operand
+    output [3:0] sum, // Sum output
+    output [3:0] carry // Carry output
+);
+    assign sum = a ^ b ^ c; // XOR of inputs
+    assign carry = (a & b) | (b & c) | (c & a); // Majority function
+
+endmodule
