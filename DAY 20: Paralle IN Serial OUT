@@ -18,3 +18,49 @@ endmodule
 
 
 //////////////////////   TB   ////////////////////////////
+
+
+module PISO_tb;
+    reg clk;
+    reg load;
+    reg [3:0] parallel_in;
+    wire serial_out;
+
+    // Instantiate the PISO module
+    PISO uut (
+        .clk(clk),
+        .load(load),
+        .parallel_in(parallel_in),
+        .serial_out(serial_out)
+    );
+
+    // Clock generation
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk; // 10ns clock period
+    end
+
+    // Test sequence
+    initial begin
+        // Test Case 1: Load parallel data
+        load = 1;
+        parallel_in = 4'b1010; // Load 1010
+        #10; // Wait for one clock cycle
+
+        // Test Case 2: Shift out the data serially
+        load = 0;
+        #10; // Serial out = 1 (MSB of 1010)
+        #10; // Serial out = 0
+        #10; // Serial out = 1
+        #10; // Serial out = 0
+
+        // End simulation
+        $stop;
+    end
+  initial begin
+    $dumpvars;
+    $dumpfile("dump.vcd");
+  
+  end
+endmodule
+
