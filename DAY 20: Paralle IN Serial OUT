@@ -1,1 +1,18 @@
+module PISO (
+    input clk,             // Clock signal
+    input load,            // Load control signal (active high)
+    input [3:0] parallel_in, // 4-bit parallel input data
+    output reg serial_out  // Serial output data
+);
+    reg [3:0] shift_reg; // Internal 4-bit register to hold the data
+
+    always @(posedge clk) begin
+        if (load) begin
+            shift_reg <= parallel_in; // Load parallel data into the register
+        end else begin
+            serial_out <= shift_reg[3]; // Output the MSB as serial output
+            shift_reg <= shift_reg << 1; // Shift left by 1 bit
+        end
+    end
+endmodule
 
