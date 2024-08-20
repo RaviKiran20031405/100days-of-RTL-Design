@@ -14,3 +14,29 @@ input rst,
 endmodule
 
 ///////////////////////    TB    ////////////////
+
+module r_c_tb();
+  reg clk;
+  reg rst;
+  wire [3:0] q;
+  
+  r_c uut(clk,rst,q);
+  always #5 clk= ~clk;
+  
+  
+  initial begin
+    $monitor("q=%b",q);
+    
+    clk = 0;
+    rst = 1;
+    #20;
+    rst = 0;
+    #200 $finish;
+  end
+  initial begin
+    $dumpvars;
+    $dumpfile("dujmp.vcd");
+    
+  end
+endmodule
+    
