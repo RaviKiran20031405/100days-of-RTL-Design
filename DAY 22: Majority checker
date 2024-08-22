@@ -1,1 +1,11 @@
 
+module majority(
+input a,b,c,
+output y
+);
+  
+  assign y =(a&b)|(b&c)|(a&c);
+  
+endmodule
+
+/////////////////   tb    /////////////////
