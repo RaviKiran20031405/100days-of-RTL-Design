@@ -21,3 +21,32 @@ input d,clk,
   
   
 endmodule
+
+
+/////////////////////////////////    TB    //////////////////////////
+
+
+
+module dlatch_mux_tb();
+  reg d;
+  reg clk;
+  wire q;
+  dlatch_mux uut(d,clk,q);
+  
+  initial begin
+    
+    clk = 0;
+    d = 0;
+    
+    
+  end
+  always #5 clk = ~clk;
+    always #10 d = ~d;
+  initial begin
+    $monitor("d=%b clk=%b q=%b",d,clk,q);
+    #500;
+    $finish;
+  end
+  
+  
+endmodule
