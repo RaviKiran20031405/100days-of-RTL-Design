@@ -21,3 +21,6 @@ module Seven_Segment_Display( in, segment );
     end
     
 endmodule
+
+
+/ //////////////////////////////    TB   ////////////////////////////////
